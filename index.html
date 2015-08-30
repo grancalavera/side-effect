@@ -7,8 +7,8 @@
     padding: 10px;
     display: inline-block;
   }
-  .gray {
-    background-color: gray;
+  .orange {
+    background-color: orange;
   }
   .blue {
     background-color: blue;
@@ -47,15 +47,11 @@
   <script type="text/javascript">
 
   each(document.querySelectorAll('.color'), function(el, i) {
-    colorize(el, ['gray', 'blue', 'green'][i], null, showChange)
+    colorize(el, ['orange', 'blue', 'green'][i], null, showChange)
   })
 
   function showChange(color) {
-    lastColor().className = "last-color " + color
-  }
-
-  function lastColor() {
-    return document.querySelector('.last-color')
+    document.querySelector('.last-color').className = "last-color " + color
   }
 
   function each(arraylike, callback) {
