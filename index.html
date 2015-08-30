@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>side effect</title>
+  <style type="text/css">
+  .color {
+    padding: 10px;
+    display: inline-block;
+  }
+  .gray {
+    background-color: gray;
+  }
+  .blue {
+    background-color: blue;
+  }
+  .green {
+    background-color: green;
+  }
+
+  .last-color {
+    width: 300px;
+    height: 300px;
+    border: 5px solid black;
+    margin-top: 10px;
+  }
+  </style>
+</head>
+<body>
+
+  <div class="color">
+    <input type="text" name="color" value="">
+    <button>Change</button>
+  </div>
+
+  <div class="color">
+    <input type="text" name="color" value="">
+    <button>Change</button>
+  </div>
+
+  <div class="color">
+    <input type="text" name="color" value="">
+    <button>Change</button>
+  </div>
+
+  <div class="last-color"></div>
+
+  <script type="text/javascript">
+
+  each(document.querySelectorAll('.color'), function(el, i) {
+    colorize(el, ['gray', 'blue', 'green'][i], null, showChange)
+  })
+
+  function showChange(color) {
+    lastColor().className = "last-color " + color
+  }
+
+  function lastColor() {
+    return document.querySelector('.last-color')
+  }
+
+  function each(arraylike, callback) {
+    return [].forEach.call(arraylike, callback)
+  }
+
+  function colorize(el, color, oldcolor, callback) {
+    var input = el.querySelector('input')
+      , button = el.querySelector('button')
+
+    el.className = "color " + color
+    input.value = color
+    button.addEventListener('click', handler)
+
+    function handler() {
+      if (input.value == color) return
+      button.removeEventListener('click', handler)
+      colorize(el, input.value, color, callback)
+      callback(input.value)
+    }
+  }
+
+  </script>
+</body>
+</html>
